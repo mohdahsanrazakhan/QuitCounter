@@ -59,7 +59,7 @@ const App = () => {
   const handleAdd = () => {
     if (newAddiction.trim() === "") return;
 
-    const today = new Date().toISOString().split("T")[0];
+    const today = new Date().toISOString();
 
     const newItem = {
       id: Date.now(),
@@ -133,8 +133,6 @@ const App = () => {
     setEditValue("");
   };
 
-
-
   return (
     <div className="min-h-screen p-6 bg-blue-50 text-gray-800">
       <div className="max-w-xl mx-auto">
@@ -158,12 +156,12 @@ const App = () => {
           </button>
         </div>
 
-        <button
+        {/*<button
           onClick={handleIncrementStreaks}
           className="mb-4 text-sm underline text-blue-700"
         >
           Simulate New Day (Increment Streaks)
-        </button>
+        </button>*/}
 
         {addictions.map((item) => (
           <div
@@ -197,22 +195,17 @@ const App = () => {
                     </button>
                   </>
                 )}
-                <span className="ml-auto">🔥 {item.streak === 0 ? 1 : item.streak} day{(item.streak === 1 || item.streak === 0) ? "" : "s"}</span>
-                {/* <span className="ml-auto">
-                  🔥 {item.streak === 0 ? 1 : item.streak} day{item.streak === 1 || item.streak === 0 ? "" : "s"}
+                {item.startedOn ? (
+                <span className="ml-auto">
+                  🔥 {item.streak === 0 || isNaN(Number(item.streak)) ? 1 : item.streak} day{item.streak === 1 || item.streak === 0 ? "" : "s"}
                   <br />
                   <small className="text-gray-500">
-                    Started {formatDistanceToNow(new Date(item.startDate), { addSuffix: true })}
+                    Started {formatDistanceToNow(new Date(item.startedOn), { addSuffix: true })}
                   </small>
-                </span> */}
-                {/* {item.startDate ? (
-                  <span className="ml-auto text-sm text-gray-500">
-                    🔥 Started {formatDistanceToNow(new Date(item.startDate), { addSuffix: true })}
-                  </span>
+                </span>
                 ) : (
                   <span className="ml-auto text-sm text-gray-400">No start date</span>
-                )} */}
-
+                )}
 
               </li>
               <button
